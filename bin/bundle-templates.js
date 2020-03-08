@@ -58,6 +58,7 @@ function bundleTemplate(templateName) {
     }
     files.push({
       name,
+      type: name.split(".").pop() === "wasm" ? "binary" : "text"
     });
   })
   return {
