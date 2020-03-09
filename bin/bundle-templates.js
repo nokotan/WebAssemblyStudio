@@ -45,7 +45,7 @@ function bundleTemplate(templateName) {
   let base = path.join(templatesDir, templateName);
   let files = [];
   walk(base, (path) => {
-    let name = path.substring(base.length + 1);
+    let name = path.substring(base.length + 1).replace("\\", "/");
     if (name == "package.json") {
       const pkg = JSON.parse(fs.readFileSync(path, "utf8"));
       templateName = pkg.name;
