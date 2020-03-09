@@ -13,7 +13,8 @@ jest.mock("../../src/compilerServices/utils", () => ({
   decodeBinary: decodeBinary.mockImplementation((args) => args)
 }));
 
-import { createCompilerService, Language } from "../../src/compilerServices";
+import { Language } from "../../src/compilerServices";
+import { ClangService } from "../../src/compilerServices/clangService";
 
 describe("Tests for clangService", () => {
   afterAll(() => {
@@ -28,7 +29,7 @@ describe("Tests for clangService", () => {
       tasks: [{ console }],
       message: "response-message"
     }));
-    const clangService = await createCompilerService(Language.C, Language.Wasm);
+    const clangService = new ClangService(Language.C);
     const input = { files: { "a.c": { content: "a" }}, options: "options"};
     const output = await clangService.compile(input);
     expect(sendRequestJSON).toHaveBeenCalledWith({
@@ -46,7 +47,7 @@ describe("Tests for clangService", () => {
   });
   it("should handle errors during compilation", async () => {
     sendRequestJSON.mockImplementation(() => ({ success: false, message: "error", tasks: [] }));
-    const clangService = await createCompilerService(Language.C, Language.Wasm);
+    const clangService = new ClangService(Language.C);
     const input = { files: { "a.c": { content: "a" }}, options: "options"};
     const output = await clangService.compile(input);
     expect(decodeBinary).not.toHaveBeenCalled();
@@ -57,7 +58,7 @@ describe("Tests for clangService", () => {
     });
   });
   it("should throw an error when trying to compile more than one file", async () => {
-    const clangService = await createCompilerService(Language.C, Language.Wasm);
+    const clangService = new ClangService(Language.C);
     const input = { files: { "a.c": { content: "a" },  "b.c": { content: "b" }}};
     await expect(clangService.compile(input))
       .rejects
