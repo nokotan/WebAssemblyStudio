@@ -24,6 +24,7 @@ export interface IConfig {
   clang: string;
   rustc: string;
   cargo: string;
+  emscripten: string;
   templates: { [name: string]: string };
 }
 

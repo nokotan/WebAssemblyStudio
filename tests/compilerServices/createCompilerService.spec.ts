@@ -5,19 +5,20 @@ import { createCompilerService, Language } from "../../src/compilerServices";
 import { RustService } from "../../src/compilerServices/rustService";
 import { ClangService } from "../../src/compilerServices/clangService";
 import { X86Service } from "../../src/compilerServices/x86Service";
+import { EmscriptenService } from "../../src/compilerServices/emscriptenService";
 
 describe("Tests for createCompilerService", () => {
   it("should be able to create a RustService (Rust -> Wasm)", async () => {
     const service = await createCompilerService(Language.Rust, Language.Wasm);
     expect(service).toBeInstanceOf(RustService);
   });
-  it("should be able to create a ClangService (C -> Wasm)", async () => {
+  it("should be able to create a EmscriptenService (C -> Wasm)", async () => {
     const service = await createCompilerService(Language.C, Language.Wasm);
-    expect(service).toBeInstanceOf(ClangService);
+    expect(service).toBeInstanceOf(EmscriptenService);
   });
-  it("should be able to create a ClangService (C++ -> Wasm)", async () => {
+  it("should be able to create a EmscriptenService (C++ -> Wasm)", async () => {
     const service = await createCompilerService(Language.Cpp, Language.Wasm);
-    expect(service).toBeInstanceOf(ClangService);
+    expect(service).toBeInstanceOf(EmscriptenService);
   });
   it("should be able to create a X86Service (Wasm -> x86)", async () => {
     const service = await createCompilerService(Language.Wasm, Language.x86);
