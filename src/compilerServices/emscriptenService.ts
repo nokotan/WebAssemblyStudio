@@ -57,7 +57,7 @@ export class EmscriptenService implements CompilerService {
       compress: true,
       files: File(inputFile, files)
     };
-    const result = await sendRequestJSON(project, ServiceTypes.Clang);
+    const result = await sendRequestJSON(project, ServiceTypes.Emscripten);
 
     let console;
     if (result.tasks && result.tasks.length > 0) {

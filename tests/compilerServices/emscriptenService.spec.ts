@@ -6,7 +6,7 @@ const decodeBinary = jest.fn();
 
 jest.mock("../../src/compilerServices/sendRequest", () => ({
   sendRequestJSON,
-  ServiceTypes: { Clang: 2 }
+  ServiceTypes: { Emscripten: 3 }
 }));
 
 jest.mock("../../src/compilerServices/utils", () => ({
@@ -39,7 +39,7 @@ describe("Tests for emscriptenService", () => {
       output: "wasm",
       compress: true,
       files: [{ type: "c", name: "a.c", options: "options", src: "a" }]
-    }, 2);
+    }, 3);
     expect(decodeBinary).toHaveBeenCalledTimes(2);
     expect(decodeBinary).toHaveBeenCalledWith("out");
     expect(output).toEqual({
@@ -86,7 +86,7 @@ describe("Tests for emscriptenService", () => {
         { type: "c", name: "a.c", options: "options", src: "a" },
         { type: "c", name: "b.c", options: "options", src: "b" }
       ]
-    }, 2);
+    }, 3);
     expect(decodeBinary).toHaveBeenCalledTimes(2);
     expect(decodeBinary).toHaveBeenCalledWith("out");
     expect(output).toEqual({

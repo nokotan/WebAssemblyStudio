@@ -24,6 +24,7 @@ export enum ServiceTypes {
   Rustc,
   Cargo,
   Clang,
+  Emscripten,
   Service
 }
 
@@ -54,6 +55,8 @@ export async function getServiceURL(to: ServiceTypes): Promise<string> {
       return config.clang;
     case ServiceTypes.Service:
       return config.serviceUrl;
+    case ServiceTypes.Emscripten:
+      return config.emscripten;
     default:
       throw new Error(`Invalid ServiceType: ${to}`);
   }
