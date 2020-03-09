@@ -22,8 +22,8 @@ describe("Tests for getConfig", () => {
       sentryDNS: "https://756ae32005ed49cf9d4dd2aa106ccd4a@sentry.io/1229949",
       serviceUrl: "//wasmexplorer-service.herokuapp.com/service.php",
       templates: {
-        arc: "/dist/arc-templates/index.js",
-        default: "/dist/templates/index.js"
+        arc: "dist/arc-templates/index.js",
+        default: "dist/templates/index.js"
       }
     });
     expect((global as any).fetch).toHaveBeenCalledWith("./config.json");
