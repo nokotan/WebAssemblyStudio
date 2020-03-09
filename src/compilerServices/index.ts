@@ -21,6 +21,7 @@
 import { CompilerService, Language } from "./types";
 import { RustService } from "./rustService";
 import { ClangService } from "./clangService";
+import { EmscriptenService } from "./emscriptenService";
 import { X86Service } from "./x86Service";
 
 export {
@@ -37,7 +38,7 @@ export async function createCompilerService(from: Language, to: Language): Promi
     return new RustService();
   }
   if ((from === Language.C || from === Language.Cpp) && to === Language.Wasm) {
-    return new ClangService(from);
+    return new EmscriptenService();
   }
   if (from === Language.Wasm && to === Language.x86) {
     return new X86Service();

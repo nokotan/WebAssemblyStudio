@@ -91,3 +91,9 @@ global.monaco = {
     as: (args) => Promise.resolve(args)
   }
 }
+
+global.TextDecoder = function() {
+  this.decode = function (arg) {
+    return arg;
+  }
+}
