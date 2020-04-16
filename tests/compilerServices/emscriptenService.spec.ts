@@ -29,7 +29,7 @@ describe("Tests for emscriptenService", () => {
             { "name": "a.wasm", "data": "out", "type": "binary" },
             { "name": "a.js", "data": "out", "type": "text" }
         ] }`,
-      tasks: [{ console }],
+      tasks: [{ file: "a.c", console }],
       message: "response-message"
     }));
     const emscriptenService = new EmscriptenService();
@@ -38,15 +38,17 @@ describe("Tests for emscriptenService", () => {
     expect(sendRequestJSON).toHaveBeenCalledWith({
       output: "wasm",
       compress: true,
-      files: [{ type: "c", name: "a.c", options: "options", src: "a" }]
+      files: [{ type: "c", name: "a.c", options: "options", src: "a" }],
+      link_options: "options"
     }, 3);
     expect(decodeBinary).toHaveBeenCalledTimes(2);
     expect(decodeBinary).toHaveBeenCalledWith("out");
     expect(output).toEqual({
       success: true,
       items: {
-        "a.wasm": { content: "out", fileRef: "a.c", console },
-        "a.js": { content: "out", fileRef: "a.c", console }
+        "a.wasm": { content: "out" },
+        "a.js": { content: "out" },
+        "a.c": { fileRef: "a.c", console }
       },
       console: "response-message"
     });
@@ -73,7 +75,7 @@ describe("Tests for emscriptenService", () => {
             { "name": "a.wasm", "data": "out", "type": "binary" },
             { "name": "a.js", "data": "out", "type": "text" }
         ] }`,
-      tasks: [{ console }],
+      tasks: [{ file: "a.c", console }, { file: "b.c", console }],
       message: "response-message"
     }));
     const emscriptenService = new EmscriptenService();
@@ -85,15 +87,18 @@ describe("Tests for emscriptenService", () => {
       files: [
         { type: "c", name: "a.c", options: "options", src: "a" },
         { type: "c", name: "b.c", options: "options", src: "b" }
-      ]
+      ],
+      link_options: "options"
     }, 3);
     expect(decodeBinary).toHaveBeenCalledTimes(2);
     expect(decodeBinary).toHaveBeenCalledWith("out");
     expect(output).toEqual({
       success: true,
       items: {
-        "a.wasm": { content: "out", fileRef: "a.c", console },
-        "a.js": { content: "out", fileRef: "a.c", console }
+        "a.wasm": { content: "out" },
+        "a.js": { content: "out" },
+        "a.c": { fileRef: "a.c", console },
+        "b.c": { fileRef: "b.c", console },
       },
       console: "response-message"
     });
