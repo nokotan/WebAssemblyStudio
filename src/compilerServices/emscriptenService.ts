@@ -37,33 +37,25 @@ export class EmscriptenService implements CompilerService {
 
   async compile(input: ServiceInput): Promise<ServiceOutput> {
     const files = Object.values(input.files);
-    const [fileRef] = Object.keys(input.files);
     const inputFile = Object.keys(input.files);
-    const File = function(inputFile: string[], files: InputFile[]) {
-      const compileFile = [];
-      for (let i = 0; i < inputFile.length; i++) {
-        const f = {
-          type: inputFile[i].split(".").slice(-1)[0],
-          name: inputFile[i].split("/").slice(-1)[0],
-          options: input.options,
-          src: files[i].content,
-        };
-        compileFile.push(f);
-      }
-      return compileFile;
-    };
+    const compiledFiles = [];
+
+    for (let i = 0; i < inputFile.length; i++) {
+      compiledFiles.push({
+        type: inputFile[i].split(".").pop(),
+        name: inputFile[i].split("/").pop(),
+        options: input.options,
+        src: files[i].content,
+      });
+    }
+
     const project = {
       output: "wasm",
       compress: true,
-      files: File(inputFile, files)
+      files: compiledFiles,
+      link_options: input.options
     };
     const result = await sendRequestJSON(project, ServiceTypes.Emscripten);
-
-    let console;
-    if (result.tasks && result.tasks.length > 0) {
-      console = result.tasks[0].console;
-    }
-
     const items: any = {};
     if (result.success) {
       const output = JSON.parse(result.output) as ICompileResult;
@@ -75,11 +67,24 @@ export class EmscriptenService implements CompilerService {
 
         if (file.type === "text") {
           const text = textDecoder.decode(content);
-          items[file.name] = { content: text, fileRef, console };
+          items[file.name] = { content: text };
         } else {
-          items[file.name] = { content, fileRef, console };
+          items[file.name] = { content };
         }
       }
+    }
+
+    const findInputFileFromFileName = (fileName: string): string => {
+      const maybeFileRef = inputFile.filter(x => x.indexOf(fileName) >= 0);
+      if (maybeFileRef.length > 0) {
+        return maybeFileRef[0];
+      } else {
+        return null;
+      }
+    };
+    for (const task of result.tasks) {
+      const fileRef = findInputFileFromFileName(task.file);
+      items[task.file] = { fileRef, console: task.console };
     }
 
     return {
