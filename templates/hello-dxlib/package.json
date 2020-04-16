@@ -1,5 +1,5 @@
 {
-  "name": "@wasm/hello_world_c",
+  "name": "@wasm/hello_dxlib_cpp",
   "description": "",
   "version": "1.0.0",
   "scripts": {
