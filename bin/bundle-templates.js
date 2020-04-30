@@ -56,9 +56,10 @@ function bundleTemplate(templateName) {
         icon = pkg.wasmStudio.icon || icon;
       }
     }
+    const extensionsOfBinaryFile = [ "wasm", "data" ];
     files.push({
       name,
-      type: name.split(".").pop() === "wasm" ? "binary" : "text"
+      type: extensionsOfBinaryFile.includes(name.split(".").pop()) ? "binary" : "text"
     });
   })
   return {

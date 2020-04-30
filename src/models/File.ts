@@ -127,6 +127,8 @@ export class File {
       monaco.editor.setModelLanguage(this.buffer, languageForFileType(FileType.Wat));
       this.description = "This .wasm file is editable as a .wat file, and is automatically reassembled to .wasm when saved.";
       return;
+    } else if (isBinaryFileType(this.type)) {
+      this.description = "Binary file will not be shown.";
     } else {
       this.buffer.setValue(this.data as string);
       this.resetDirty();

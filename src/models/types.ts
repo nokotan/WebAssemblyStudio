@@ -40,6 +40,14 @@ export enum FileType {
   JSON       = "json",
   DOT        = "dot",
   TOML       = "toml",
+  TTF        = "ttf",
+  Bitmap     = "bitmap",
+  PNG        = "png",
+  Jpeg       = "jpeg",
+  Wave       = "wave",
+  MP3        = "mp3",
+  Ogg        = "ogg",
+  DATA       = "data",
   Unknown    = "unknown"
 }
 
@@ -57,6 +65,22 @@ export interface IStatusProvider {
 export function isBinaryFileType(type: FileType) {
   switch (type) {
     case FileType.Wasm:
+      return true;
+    case FileType.TTF:
+      return true;
+    case FileType.Bitmap:
+      return true;
+    case FileType.PNG:
+      return true;
+    case FileType.Jpeg:
+      return true;
+    case FileType.Wave:
+      return true;
+    case FileType.MP3:
+      return true;
+    case FileType.Ogg:
+      return true;
+    case FileType.DATA:
       return true;
     default:
       return false;
@@ -92,6 +116,22 @@ export function languageForFileType(type: FileType): string {
     return "dot";
   } else if (type === FileType.TOML) {
     return "toml";
+  } else if (type === FileType.TTF) {
+    return "ttf";
+  } else if (type === FileType.Bitmap) {
+    return "bitmap";
+  } else if (type === FileType.PNG) {
+    return "png";
+  } else if (type === FileType.Jpeg) {
+    return "jpeg";
+  } else if (type === FileType.Wave) {
+    return "wave";
+  } else if (type === FileType.MP3) {
+    return "mp3";
+  } else if (type === FileType.Ogg) {
+    return "ogg";
+  } else if (type === FileType.DATA) {
+    return "data";
   }
   return "";
 }
@@ -125,6 +165,22 @@ export function nameForFileType(type: FileType): string {
     return "DOT";
   } else if (type === FileType.TOML) {
     return "TOML";
+  } else if (type === FileType.TTF) {
+    return "TrueType Font";
+  } else if (type === FileType.Bitmap) {
+    return "Bitmap Image";
+  } else if (type === FileType.PNG) {
+    return "Png Image";
+  } else if (type === FileType.Jpeg) {
+    return "Jpeg Image";
+  } else if (type === FileType.Wave) {
+    return "Wave Audio";
+  } else if (type === FileType.MP3) {
+    return "MP3 Audio";
+  } else if (type === FileType.Ogg) {
+    return "Ogg Audio";
+  } else if (type === FileType.DATA) {
+    return "Binary File";
   }
   return "";
 }
@@ -158,6 +214,22 @@ export function extensionForFileType(type: FileType): string {
     return "dot";
   } else if (type === FileType.TOML) {
     return "toml";
+  } else if (type === FileType.TTF) {
+    return "ttf";
+  } else if (type === FileType.Bitmap) {
+    return "bmp";
+  } else if (type === FileType.PNG) {
+    return "png";
+  } else if (type === FileType.Jpeg) {
+    return "jpeg";
+  } else if (type === FileType.Wave) {
+    return "wav";
+  } else if (type === FileType.MP3) {
+    return "mp3";
+  } else if (type === FileType.Ogg) {
+    return "ogg";
+  } else if (type === FileType.DATA) {
+    return "data";
   }
   return "";
 }
@@ -195,6 +267,22 @@ export function fileTypeForExtension(extension: string): FileType {
     return FileType.DOT;
   } else if (extension === "toml") {
     return FileType.TOML;
+  } else if (extension === "ttf") {
+    return FileType.TTF;
+  } else if (extension === "bmp") {
+    return FileType.Bitmap;
+  } else if (extension === "png") {
+    return FileType.PNG;
+  } else if (extension === "jpeg") {
+    return FileType.Jpeg;
+  } else if (extension === "wav") {
+    return FileType.Wave;
+  } else if (extension === "mp3") {
+    return FileType.MP3;
+  } else if (extension === "ogg" || extension === "oga") {
+    return FileType.Ogg;
+  } else if (extension === "data" || extension === "dat") {
+    return FileType.DATA;
   }
   return null;
 }
@@ -212,6 +300,22 @@ export function mimeTypeForFileType(type: FileType): string {
     return "text/plain";
   } else if (type === FileType.Markdown) {
     return "text/markdown";
+  } else if (type === FileType.TTF) {
+    return "font/ttf";
+  } else if (type === FileType.Bitmap) {
+    return "image/bmp";
+  } else if (type === FileType.PNG) {
+    return "image/png";
+  } else if (type === FileType.Jpeg) {
+    return "image/jpeg";
+  } else if (type === FileType.Wave) {
+    return "audio/wav";
+  } else if (type === FileType.MP3) {
+    return "audio/mpeg";
+  } else if (type === FileType.Ogg) {
+    return "audio/ogg";
+  } else if (type === FileType.DATA) {
+    return "application/octet-stream";
   }
   return "";
 }
@@ -227,6 +331,22 @@ export function fileTypeForMimeType(type: string): FileType {
     return FileType.Markdown;
   } else if (type === "application/json") {
     return FileType.JSON;
+  } else if (type === "font/ttf") {
+    return FileType.TTF;
+  } else if (type === "image/bmp") {
+    return FileType.Bitmap;
+  } else if (type === "image/png") {
+    return FileType.PNG;
+  } else if (type === "image/jpeg") {
+    return FileType.Jpeg;
+  } else if (type === "audio/wav") {
+    return FileType.Wave;
+  } else if (type === "audio/mpeg") {
+    return FileType.MP3;
+  } else if (type === "audio/ogg") {
+    return FileType.Ogg;
+  } else if (type === "application/octet-stream") {
+    return FileType.DATA;
   }
   return FileType.Unknown;
 }
