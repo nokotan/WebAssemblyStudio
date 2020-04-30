@@ -15,15 +15,16 @@ async function getRunResults() {
   }, "iframe");
 }
 
-describe("Empty C Project: Create, Build and Run", () => {
+describe("Hello World in C: Create, Build and Run", () => {
   beforeAll(async () => {
     jest.setTimeout(30000);
     await page.goto("https://localhost:28443");
   });
   it("should initialy display the Create New Project dialog", async () => {
-    await expect(page).toMatch("Empty C Project");
+    await expect(page).toMatch("Hello World in C");
   });
-  it("should create an Empty C Project when clicking the Create button", async () => {
+  it("should create an Hello World in C when clicking the Create button", async () => {
+    await page.click("div.list-item:nth-child(5)");
     await page.click("div.button[title=\"Create\"]");
     await page.waitForSelector("a.label-name");
     await expect(getDirectoryStructure()).resolves.toEqual([
