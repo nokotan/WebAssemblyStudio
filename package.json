@@ -59,7 +59,7 @@
     "@types/jszip": "^3.1.4",
     "@types/minimatch": "^3.0.3",
     "@types/mousetrap": "^1.6.0",
-    "@types/pako": "^1.0.0",
+    "@types/pako": "^1.0.1",
     "@types/react-icons": "^2.2.6",
     "@types/react-modal": "^3.2.1",
     "@types/xterm": "^3.0.0",
