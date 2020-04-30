@@ -6,6 +6,7 @@
 WASM_EXPORT
 int main(void) {
   printf("Hello World\n");
+  return 42;
 }
 
 /* External function that is implemented in JavaScript. */
