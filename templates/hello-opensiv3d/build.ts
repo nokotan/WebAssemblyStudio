@@ -12,3 +12,11 @@ gulp.task("build", async () => {
 });
 
 gulp.task("default", ["build"], async () => {});
+
+gulp.task("project:load", async () => {
+  logLn("Downloading Siv3D.wasm...");
+  const siv3DWasmFile = project.newFile("src/Siv3D.wasm", "wasm", true);
+  const siv3DWasm = await (await fetch("https://siv3d-assets.kamenokosoft.com/lib/Siv3D.wasm")).arrayBuffer();
+  siv3DWasmFile.setData(siv3DWasm);
+  logLn("Successfully Downloaded Siv3D.wasm");
+});
