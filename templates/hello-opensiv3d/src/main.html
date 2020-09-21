@@ -14,15 +14,14 @@
 <body>
   <canvas id="canvas" width="320px" height="240px" tabindex="-1"></canvas>
 
+  <script src="Siv3D.js"></script>
   <script>
-    var Module = {
-      canvas: (function() {
+    Module['canvas'] = (function() {
         var canvas = document.querySelector('canvas');
         canvas.addEventListener("webglcontextlost", function(e) { alert('WebGL context lost. You will need to reload the page.'); e.preventDefault(); }, false);
         return canvas;
-      })(),
-      dynamicLibraries: ["Siv3D.wasm"]
-    }
+      })();
+    Module['dynamicLibraries'] = ["Siv3D.wasm"];
   </script>
   <script src="main.js"></script>
   <script src="main.data.js"></script>
