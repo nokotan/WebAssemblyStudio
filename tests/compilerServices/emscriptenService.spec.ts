@@ -41,7 +41,7 @@ describe("Tests for emscriptenService", () => {
       files: [{ type: "c", name: "a.c", options: "options", src: "a" }],
       link_options: "options"
     }, 3);
-    expect(decodeBinary).toHaveBeenCalledTimes(2);
+    expect(decodeBinary).toHaveBeenCalledTimes(1);
     expect(decodeBinary).toHaveBeenCalledWith("out");
     expect(output).toEqual({
       success: true,
@@ -90,7 +90,7 @@ describe("Tests for emscriptenService", () => {
       ],
       link_options: "options"
     }, 3);
-    expect(decodeBinary).toHaveBeenCalledTimes(2);
+    expect(decodeBinary).toHaveBeenCalledTimes(1);
     expect(decodeBinary).toHaveBeenCalledWith("out");
     expect(output).toEqual({
       success: true,
