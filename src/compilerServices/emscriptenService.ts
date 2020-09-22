@@ -59,16 +59,14 @@ export class EmscriptenService implements CompilerService {
     const items: any = {};
     if (result.success) {
       const output = JSON.parse(result.output) as ICompileResult;
-      const textDecoder = new TextDecoder("utf8");
 
       for (let i = 0; i < output.files.length; i++) {
         const file = output.files[i];
-        const content = await decodeBinary(file.data);
 
         if (file.type === "text") {
-          const text = textDecoder.decode(content);
-          items[file.name] = { content: text };
+          items[file.name] = { content: file.data };
         } else {
+          const content = await decodeBinary(file.data);
           items[file.name] = { content };
         }
       }
