@@ -24,11 +24,8 @@ describe("Tests for emscriptenService", () => {
     const console = { log: jest.fn() };
     sendRequestJSON.mockImplementation(() => ({
       success: true,
-      output:
-        `{ "files": [
-            { "name": "a.wasm", "data": "out", "type": "binary" },
-            { "name": "a.js", "data": "out", "type": "text" }
-        ] }`,
+      output: "wasm",
+      wasmBindgenJs: "bindgen",
       tasks: [{ file: "a.c", console }],
       message: "response-message"
     }));
@@ -42,12 +39,12 @@ describe("Tests for emscriptenService", () => {
       link_options: "options"
     }, 3);
     expect(decodeBinary).toHaveBeenCalledTimes(1);
-    expect(decodeBinary).toHaveBeenCalledWith("out");
+    expect(decodeBinary).toHaveBeenCalledWith("wasm");
     expect(output).toEqual({
       success: true,
       items: {
-        "a.wasm": { content: "out" },
-        "a.js": { content: "out" },
+        "a.wasm": { content: "wasm" },
+        "wasm_bindgen.js": { content: "bindgen" },
         "a.c": { fileRef: "a.c", console }
       },
       console: "response-message"
@@ -70,11 +67,8 @@ describe("Tests for emscriptenService", () => {
     decodeBinary.mockClear();
     sendRequestJSON.mockImplementation(() => ({
       success: true,
-      output:
-        `{ "files": [
-            { "name": "a.wasm", "data": "out", "type": "binary" },
-            { "name": "a.js", "data": "out", "type": "text" }
-        ] }`,
+      output: "wasm",
+      wasmBindgenJs: "bindgen",
       tasks: [{ file: "a.c", console }, { file: "b.c", console }],
       message: "response-message"
     }));
@@ -91,12 +85,12 @@ describe("Tests for emscriptenService", () => {
       link_options: "options"
     }, 3);
     expect(decodeBinary).toHaveBeenCalledTimes(1);
-    expect(decodeBinary).toHaveBeenCalledWith("out");
+    expect(decodeBinary).toHaveBeenCalledWith("wasm");
     expect(output).toEqual({
       success: true,
       items: {
-        "a.wasm": { content: "out" },
-        "a.js": { content: "out" },
+        "a.wasm": { content: "wasm" },
+        "wasm_bindgen.js": { content: "bindgen" },
         "a.c": { fileRef: "a.c", console },
         "b.c": { fileRef: "b.c", console },
       },
