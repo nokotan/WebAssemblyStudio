@@ -8,7 +8,7 @@ gulp.task("build", async () => {
   const outWasm = project.newFile("src/main.wasm", "wasm", true);
   outWasm.setData(data["a.wasm"]);
   const outJS = project.newFile("src/main.js", "javascript", true);
-  outJS.setData(data["a.js"]);
+  outJS.setData(data["wasm_bindgen.js"]);
 });
 
 gulp.task("default", ["build"], async () => {});
