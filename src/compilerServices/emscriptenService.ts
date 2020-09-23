@@ -58,18 +58,8 @@ export class EmscriptenService implements CompilerService {
     const result = await sendRequestJSON(project, ServiceTypes.Emscripten);
     const items: any = {};
     if (result.success) {
-      const output = JSON.parse(result.output) as ICompileResult;
-
-      for (let i = 0; i < output.files.length; i++) {
-        const file = output.files[i];
-
-        if (file.type === "text") {
-          items[file.name] = { content: file.data };
-        } else {
-          const content = await decodeBinary(file.data);
-          items[file.name] = { content };
-        }
-      }
+      const content = await decodeBinary(result.output);
+      items["a.wasm"] = { content };
     }
 
     const findInputFileFromFileName = (fileName: string): string => {
@@ -83,6 +73,12 @@ export class EmscriptenService implements CompilerService {
     for (const task of result.tasks) {
       const fileRef = findInputFileFromFileName(task.file);
       items[task.file] = { fileRef, console: task.console };
+    }
+
+    if (result.wasmBindgenJs) {
+      items["wasm_bindgen.js"] = {
+        content: result.wasmBindgenJs,
+      };
     }
 
     return {
