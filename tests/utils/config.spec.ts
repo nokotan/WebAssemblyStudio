@@ -18,7 +18,7 @@ describe("Tests for getConfig", () => {
       cargo: "//webassembly-studio-rust.herokuapp.com/cargo",
       clang: "//webassembly-studio-clang.herokuapp.com/build",
       rustc: "//webassembly-studio-rust.herokuapp.com/rustc",
-      emscripten: "//emscripten-compiler.herokuapp.com/build",
+      emscripten: "//emscripten-compiler-2-0-4.herokuapp.com/build",
       sentryDNS: "https://756ae32005ed49cf9d4dd2aa106ccd4a@sentry.io/1229949",
       serviceUrl: "//wasmexplorer-service.herokuapp.com/service.php",
       templates: {
