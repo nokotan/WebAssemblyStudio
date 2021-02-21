@@ -21,9 +21,9 @@
         canvas.addEventListener("webglcontextlost", function(e) { alert('WebGL context lost. You will need to reload the page.'); e.preventDefault(); }, false);
         return canvas;
       })(),
-      dynamicLibraries: ["DxLib.wasm"]
+      dynamicLibraries: ["main.wasm"]
     }
   </script>
-  <script async src="main.js"></script>
+  <script async src="DxLib.js"></script>
 </body>
 </html>
