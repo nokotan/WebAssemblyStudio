@@ -10,3 +10,22 @@ gulp.task("build", async () => {
 });
 
 gulp.task("default", ["build"], async () => {});
+
+gulp.task("project:load", async () => {
+  logLn("Downloading OpenSiv3D for Web Files...");
+
+  await Promise.all([ 
+    (async () => {
+      const siv3DWasmFile = project.newFile("src/Siv3D.wasm", "wasm", true);
+      const siv3DWasm = await (await fetch("https://siv3d-assets.kamenokosoft.com/lib/Siv3D.wasm")).arrayBuffer();
+      siv3DWasmFile.setData(siv3DWasm);
+    })(),
+    // (async () => {
+    //   const siv3DDataFile = project.newFile("src/Siv3D.data", "data", true);
+    //   const siv3DData = await (await fetch("https://siv3d-assets.kamenokosoft.com/lib/Siv3D.data")).arrayBuffer();
+    //   siv3DDataFile.setData(siv3DData);
+    // })()
+  ]);
+
+  logLn("Successfully Downloaded OpenSiv3D for Web Files");
+});
